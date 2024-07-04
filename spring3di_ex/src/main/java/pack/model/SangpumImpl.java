@@ -8,6 +8,4 @@ public class SangpumImpl implements SangpumInter {
 		
 		return m;
 	}
-
-
 }

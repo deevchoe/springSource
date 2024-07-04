@@ -5,7 +5,7 @@ import pack.model.SangpumInter;
 
 public class MyImpl implements MyInter {
     private SangpumInter inter;
-    //private SangpumImpl // 클래스 주지마. 위처럼 인터페이스를 줘야해 SangpumInter의 모든걸 갖다 쓸거야 뭘 쓸지는 생성자를 통해 들어와 init.xml이 그걸 정해줘
+    //private SangpumImpl inter; // 클래스 주지마. 위처럼 인터페이스를 줘야해 그래야 SangpumInter의 모든걸 갖다 쓸 수 있어. SangpumImpl로 하면 SangpumImpl만 갖다 쓸 수 있어!!! 뭘 쓸지는 생성자를 통해 들어와 init.xml이 그걸 정해줘
     private String sang;
     private int money;
 
@@ -22,9 +22,9 @@ public class MyImpl implements MyInter {
             System.out.print("수량 : ");
             int cnt = scanner.nextInt();
             System.out.print("단가 : ");
-            int m = scanner.nextInt();
+            int dan = scanner.nextInt();
             
-            money = inter.calcMoney(cnt, m);
+            money = inter.calcMoney(cnt, dan);
         } catch (Exception e) {
             e.printStackTrace(); // 예외를 출력하여 디버깅
         }
