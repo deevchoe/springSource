@@ -6,7 +6,7 @@
     
     <!-- DI : Constructor injection -->
 	<bean id="myImpl" class="pack.controller.MyImpl">
-		<property name="inter" ref="sangpumImpl"></property>
+		<property name="inter" ref="sangpumImpl" />
 	</bean>
 	
 	<bean id="sangpumImpl" class="pack.model.SangpumImpl" />

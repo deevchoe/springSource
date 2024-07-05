@@ -12,6 +12,5 @@ public class Main {
 		MyInter myInter = (MyInter)context.getBean("myImpl");
 		myInter.inputData();
 		myInter.showData();
-
 	}
 }

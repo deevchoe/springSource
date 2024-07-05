@@ -34,7 +34,5 @@ public class MyImpl implements MyInter {
 	@Override
 	public void showData() {
 		System.out.println("상품명 :" + res[0] + " => 금액은 " + res[1]);
-
 	}
-
 }
