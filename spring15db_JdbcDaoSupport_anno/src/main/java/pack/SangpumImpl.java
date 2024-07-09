@@ -1,0 +1,41 @@
+package pack;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.support.JdbcDaoSupport;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class SangpumImpl extends JdbcDaoSupport implements SangpumInter{
+	@Autowired
+	public SangpumImpl(DataSource dataSource) {	// 생성자를 통해 주입
+		setDataSource(dataSource);
+	}
+	
+	@Override
+	public ArrayList<SangpumDto> selectAll() {
+		RowMapper rowMapper = new SangpumRowMapper();
+		return (ArrayList)getJdbcTemplate().query("select * from sangdata", rowMapper); // 얠 써야 쿼리문을 쓸 수 있어 JdbcDaoSupport가 갖고 있어
+	}
+	
+	// 내부 클래스
+	class SangpumRowMapper implements RowMapper{
+		@Override
+		public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+			// 내부적으로 수행되는 PreparedStatement에 의해 select의 실행 결과가 mapRow로 전달됨. preparedstatement와 rs.next() 쓸 필요 없다.
+			//System.out.println("rowNum : " + rowNum);
+			SangpumDto dto = new SangpumDto();
+			dto.setCode(rs.getString("code"));
+			dto.setSang(rs.getString("sang"));
+			dto.setSu(rs.getString("su"));
+			dto.setDan(rs.getString("dan"));
+			return dto;
+			
+			// rowMapper에 의해 dto가 List 컬렉션에 저장. 레코드 자료가 소진될 때까지.
+		}
+	}
+}
