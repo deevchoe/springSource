@@ -19,6 +19,19 @@ if, switch, each 연습
 	</tr>
 </table>
 <br>
+
+<table border="1">
+	<tr>
+		<th>인덱스</th><th>인덱스</th><th>인덱스</th>
+	</tr>
+	<tr th:each="dto,status:${dtos}">
+		<td th:text = "${status.index}"></td>	<!-- 인덱스는 0부터 출발해 -->
+		<td th:text = "${status.count}"></td>	<!-- count는 1부터 출발해 -->
+		<td th:if="${status.odd}" th:text="홀수"></td>
+		<td th:if="${status.even}" th:text="짝수"></td>
+	</tr>
+</table>
+
 <table border="1">
 	<tr>
 		<th>인덱스</th><th>아이디</th><th>상품명</th>
@@ -33,17 +46,6 @@ if, switch, each 연습
 	</tr>
 </table>
 <br>
-<table border="1">
-	<tr>
-		<th>인덱스</th><th>인덱스</th><th>인덱스</th>
-	</tr>
-	<tr th:each="dto,status:${dtos}">
-		<td th:text = "${status.index}"></td>	<!-- 인덱스는 0부터 출발해 -->
-		<td th:text = "${status.count}"></td>	<!-- count는 1부터 출발해 -->
-		<td th:if="${status.odd}" th:text="홀수"></td>
-		<td th:if="${status.even}" th:text="짝수"></td>
-	</tr>
-</table>
 
 <hr>
 링크 처리<br>
