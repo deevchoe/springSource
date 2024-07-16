@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+🐥🐥🐥<hr>
+<form name="f"></form>
+<script>
+function func(){
+         f.action="test1"; 
+         f.method="post";  //POST방식
+         f.submit();
+}
+</script>
+
+<form name="f2"></form>
+<script>
+function func2(){
+         f2.action="test2"; 
+         f2.method="post";  //POST방식
+         f2.submit();
+}
+</script>
+<a href="test1">컨트롤러 만나기1(GET)</a><br> <!-- 요청 -->
+<a href="javascript:func();">컨트롤러 만나기1(POST)</a><br>
+
+<a href="test2">컨트롤러 만나기2</a><br>
+<a href="javascript:func2();">컨트롤러 만나기2(POST)</a><br>
+
+<a href="test3">컨트롤러 만나기3</a><br>
+<a href="test4">컨트롤러 만나기4</a><br>
+<hr>
+<form action="test5" method="post">
+	<input type="submit" value="컨트롤러 만나기5">
+</form>
+<br>
+<form action="test6" method="post">
+	<input type="submit" value="컨트롤러 만나기6">
+</form>
+<br>
+<form action="test7" method="post">
+	<input type="submit" value="컨트롤러 만나기7">
+</form>
+<br>
+<a href="test8">data 얻기</a><br> 
+<a href="test8_1">data 얻기2</a><br> 
+
+<hr>
+두번째 컨트롤러와 매핑<br>
+<form action="test9" method="get">
+	<input type="submit" value="컨트롤러 만나기9 - GET">
+</form>
+<br>
+<form action="test9" method="post">
+	<input type="submit" value="컨트롤러 만나기9 - POST">
+</form>
+<br>
+
+<hr>
+세번째 컨트롤러와 매핑<br>
+<a href="/java/korea">컨트롤러 만나기10 - korea</a><br>
+<a href="/java/good">컨트롤러 만나기10 - good</a><br>
+<a href="/nice">컨트롤러 만나기10 - nice</a><br>
+<a href="ok">컨트롤러 만나기10 - ok</a><br>
+</body>
+</html>
