@@ -58,7 +58,6 @@ public class TestController {
 		}
 		
 		model.addAttribute("dtos", list);
-		
 		return "show3";
 	}
 	
@@ -69,5 +68,11 @@ public class TestController {
 		model.addAttribute("arg1", param1);
 		model.addAttribute("arg2", param2);
 		return "show4";
+	}
+	
+	@GetMapping("/ex5")
+	public String abc5() {
+		
+		return "show5";
 	}
 }
