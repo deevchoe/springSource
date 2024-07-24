@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="pack.model.DataMapInterface">
+	<select id="selectAll" parameterType="pack.controller.JikwonBean" resultType="pack.model.Jikwon">
+		SELECT jikwon_no, jikwon_name, jikwon_jik, jikwon_pay, jikwon_rating
+		FROM jikwon LEFT OUTER JOIN buser
+		ON buser_num = buser_no
+		WHERE buser_name = #{searchBuser};
+	</select>
+	<select id="selectSearch" parameterType="pack.controller.JikwonBean" resultType="pack.model.Jikwon">
+		SELECT jikwon_no, jikwon_name, jikwon_jik, jikwon_pay, jikwon_rating
+		FROM jikwon LEFT OUTER JOIN buser
+		ON buser_num = buser_no
+		WHERE buser_name = #{searchBuser} and jikwon_rating=#{searchRating};
+	</select>
+
+</mapper>

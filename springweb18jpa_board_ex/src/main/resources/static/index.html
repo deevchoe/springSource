@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h3>🖱️부서별 평가등급 조회(@MVC - JPA)⌨️</h3>
+<form action="search" method="post">
+	부서명 : <select name="searchBuser">
+				<option value="10" selected="selected">총무부</option>
+				<option value="20">영업부</option>
+				<option value="30">전산부</option>
+				<option value="40">관리부</option>
+			</select>
+			
+<input type="submit" value="확인"><br>
+
+	평가등급<input type="radio" name="searchRating" value="all" checked="checked">전체
+			<input type="radio" name="searchRating" value="a"> a
+			<input type="radio" name="searchRating" value="b"> b
+			<input type="radio" name="searchRating" value="c"> c
+</form>
+</body>
+</html>

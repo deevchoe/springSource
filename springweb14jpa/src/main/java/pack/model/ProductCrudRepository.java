@@ -19,13 +19,17 @@ public interface ProductCrudRepository extends JpaRepository<ProductVO, Integer>
 	
 
 	// where 조건
-	@Query(value = "select p from ProductVO as p where p.code=:code")
-	ProductVO findByCodeMy(@Param("code") int code);	// 이름 기반
+	@Query(value = "select p from ProductVO as p where p.code=:code")	// 이름 기반
+	ProductVO findByCodeMy(@Param("code") int code);	// 이름에 의한 매핑일 때는 @Param
 	
 
-	@Query(value = "select p from ProductVO as p where p.code=?1")
-	ProductVO findByCodeMy2(int code);	// 순서 기반
+	@Query(value = "select p from ProductVO as p where p.code=?1")		// 순서 기반
+	ProductVO findByCodeMy2(int code);
 
 	@Query(value = "select p from ProductVO as p where p.code=?1 or p.sang=?2")
 	List<ProductVO> findByData(int code, String sang);
+	
+	// native Query문 사용
+	@Query(value = "select code, sang, su, dan from product where code <= 5", nativeQuery = true)	// 기본값은 false
+	List<ProductVO> findAllData2();
 }

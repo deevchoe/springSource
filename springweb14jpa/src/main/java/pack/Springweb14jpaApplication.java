@@ -102,5 +102,15 @@ public class Springweb14jpaApplication {
 					vo6.getSu() + " " +
 					vo6.getDan());
 		}
+
+		System.out.println("native SQL 결과");
+		List<ProductVO> list5 = repository.findAllData2();
+		
+		for(ProductVO vo_ql:list5) {
+			System.out.println(vo_ql.getCode() + " " + 
+					vo_ql.getSang() + " " +
+					vo_ql.getSu() + " " +
+					vo_ql.getDan());
+		}
 	}
 }

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th=https://www.thymeleaf.org>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h2>상품 자료 출력</h2>
+상품명 : <th:block th:text="${itemDto.name}"></th:block>,
+가격 : <th:block th:text="${itemDto.price}"></th:block>원
+(<th:block th:text="${itemDto.data}"></th:block>)
+</body>
+</html>

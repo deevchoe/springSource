@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h3>직원 목록</h3>
+<table border="1">
+	<th:block th:if="${datas.size > 0}">
+		<tr>
+			<th>사번</th><th>직원명</th><th>성별</th><th>연봉</th>
+		</tr>
+		<tr th:each="data:${datas}">
+			<td th:text="${data.jikwon_no}">코드 출력</td>
+			<td th:text="${data.jikwon_name}">품명 출력</td>
+			<td th:text="${data.jikwon_gen}">수량 출력</td>
+			<td>[[${#numbers.formatInteger(data.jikwon_pay, 3, 'COMMA')}]]</td>
+		</tr>
+		
+				<tr>
+			<td colspan="5">
+			<form th:action="@{/search}">
+			직원명 : <input type="text" name="searchValue">
+			<input type="submit" value="검색">
+			</form>
+			</td>
+		</tr>
+	</th:block>
+</table>
+	<br>인원수 : [[${datas.size}]]명
+</body>
+</html>
