@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>직원 목록</title>
+</head>
+<body>
+    <h2>직원 목록</h2>
+    <table border="1">
+        <tr>
+            <th>사번</th><th>이름</th><th>직급</th><th>부서명</th><th>관리고객</th>
+        </tr>
+        <tr th:each="jik : ${list}">
+            <td th:text="${jik.jno}">num</td>
+			<!-- 사원명 클릭하면 담당 고객 출력하기 -->
+        <th:block>
+        <td  th:if="${jik.hasGogek == 'O'}">
+        	<a th:href="@{/mygogek(jno=${jik.jno})}" th:text="${jik.jname}">jname</a>
+        </td>
+        <td th:unless="${jik.hasGogek == 'O'}" th:text="${jik.jname}">jname</td>
+        </th:block>
+            <td th:text="${jik.jik}">jik</td>
+	        <td th:text="${jik.bname}">bname</td>
+	        <td th:text="${jik.hasGogek}">hasGogek</td>
+        </tr>
+    </table>
+</body>
+</html>

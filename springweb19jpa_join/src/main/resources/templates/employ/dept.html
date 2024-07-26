@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>templates/employ/elist.html</title>
+</head>
+<body>
+<h2>🎥 부서 정보 열람</h2>
+<b>🎲 부서 번호 🎲</b> <strong th:text="${dto.deptno}">deptno</strong><br>
+<b>🪪 부서 이름 🪪</b> <span th:text="${dto.dname}">dname</span><br>
+<b>🧸 부서 위치 🧸</b> <span th:text="${dto.loc}">loc</span><br>
+<b>🪅 근무 인원 수 🪅</b> <span th:text="${dto.count}">count</span><br> <!-- DeptDto에 .count(dept.getList().size()) 받아놨다 -->
+<h3>📽️ 근무자 명단</h3>
+<ul>
+	<li th:each="irum:${dto.names}">[[${irum}]]</li>
+</ul>
+</body>
+</html>

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import jakarta.transaction.Transactional;
 import pack.dto.MemberDto;
 import pack.entity.Member;
 import pack.repository.MemberRepository;
@@ -65,15 +66,25 @@ public class MemberServiceImpl implements MemberServiceInter{
 	}
 	
 	@Override
-	public void update(MemberDto dto) {
+	public void update(MemberDto dto) {		// 1차 캐시를 사용하지 않는다.
 		memRepository.save(Member.toEntity(dto));	// memberdto를 entity로 바꿔줘ㅓㅓ
 		
 	}
 	
+	@Transactional
 	@Override
 	public void update2(MemberDto dto) {
-		// TODO Auto-generated method stub
-		
+	    // 수정할 회원의 번호를 이용해서 회원 정보 entity 객체 얻어내기
+	    Member m1 = memRepository.findById(dto.getNum()).get();
+	    Member m2 = memRepository.findById(dto.getNum()).get();
+	    
+	    // 동일성 검사
+	    boolean isEqual = m1 == m2;
+	    System.out.println("m1과 m2가 같냐?" + isEqual);
+	    
+	    // setter 메소드를 이용해서 이름과 주소 수정하기
+	    m1.setName(dto.getName());
+	    m1.setAddr(dto.getAddr());
 	}
 	
 	@Override
