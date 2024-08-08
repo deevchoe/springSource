@@ -23,8 +23,4 @@ public class BuserEntity {
 
     @Column(name = "buser_name")
     private String bname;
-
-    @Column(name="buser_tel")
-    private String btel;
-
 }
