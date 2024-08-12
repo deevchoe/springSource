@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Vue REST</title>
+<style type="text/css">
+table {
+	width: 90%;
+	border-collapse:collapse; 
+}
+th, td{
+	border: 1px solid #ddd;
+	padding: 8px;
+	text-align: center;
+}
+th {
+	background-color: #f2f2f2;
+}
+</style>
+
+<script src="https://unpkg.com/vue@3"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<div id="app">
+<h2>🪪 회원 정보</h2>
+<table>
+	<thead>
+		<tr>
+			<th>번호</th><th>이름</th><th>주소</th><th>수정/삭제</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr v-for="member in members" :key="member.num">
+			<td>{{ member.num }}</td>
+			<td>{{ member.name }}</td>
+			<td>{{ member.addr }}</td>
+			<td>
+				<button @click="selectMember(member)">수정</button>
+				<button @click="deleteMember(member.num)">삭제</button>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<h2>❓추가도 하Go~ 수정도 하Go~❗</h2>
+<form @submit.prevent="saveMember">
+	<input v-model="memberForm.name" placeholder="이름 입력" required><br/>
+	<input v-model="memberForm.addr" placeholder="주소 입력" required><br/>
+	<button type="submit">회원 {{memberForm.num?'수정':'추가'}}</button>
+	<!-- num 값에 따라 수정 또는 추가 -->
+</form>
+</div>
+
+<script type="text/javascript">
+const {createApp, ref, onMounted} = Vue;	// createApp, ref, onMounted 얘네 어디서 가져올거야~? Vue에서
+
+createApp({
+	setup(){
+		const members = ref([]);
+		// 반응형 데이터로 동작 : 저 안에 있는 애들이 Vue 컴포넌트에서 변경될 때 자동 추적됨. UI를 재렌더링. 
+		const memberForm = ref({num:null, name:'', addr:''});
+		
+		// 자료를 읽는 비동기 함수
+		const fetchNumbers = async() => {
+			const response = await axios.get('/members');	// MemberController의 GetMapping members를 만나겠넹
+			members.value = response.data;
+		};
+		
+		// 회원 정보 저장 (수정 또는 추가)하는 비동기 함수
+		const saveMember = async() => {
+			if(memberForm.value.num){
+				// memberForm.value.num 값이 있으면 회원을 수정
+				await axios.put(`/members/${memberForm.value.num}`, memberForm.value); // 수정이니깐 put!
+			}else{
+				// memberForm.value.num 값이 없으면 회원을 추가
+				await axios.post('/members', memberForm.value); // 수정이니깐 put!
+			}
+
+			// 위 작업 후 입력 자료 (폼) 지우기
+			memberForm.value = {num:null, name:'', addr:''};
+			
+			fetchNumbers();	// 수정 또는 추가 후 목록 보기
+		};
+		
+		// 회원 삭제 비동기 함수
+		const deleteMember = async(num) => {	// async에 num이 넘어오게?
+			await axios.delete(`members/${num}`);
+			fetchNumbers();	// 삭제 후 목록 보기
+		};
+		
+		const selectMember = (member) => {
+			memberForm.value = {...member};
+		}
+		
+		onMounted(fetchNumbers);	// 컴포넌트가 Mount되면 fetchNumbers 호출
+		
+		return {members, memberForm, saveMember, deleteMember, selectMember};
+	}
+}).mount('#app');
+</script>
+</body>
+</html>

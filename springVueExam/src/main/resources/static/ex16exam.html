@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3"></script>
+</head>
+<body>
+    
+    <div id="jikwonapp">
+        직급 입력 : <input type="text" v-model="jik">&nbsp;
+        <button @click="jikwonFunc">확인</button>
+
+        <br/><br/>
+        <table border="1" style="text-align: center;" v-if="jikwon.length > 0">
+            
+            <tr>
+                <th>사번</th><th>이름</th><th>부서명</th><th>직급</th><th>연봉</th>
+            </tr>
+            <tr v-for="(jikwonItem, index) in jikwon" :key="index">
+                <td>{{ jikwonItem.jno }}</td>
+                <td>{{ jikwonItem.jname }}</td>
+                <td>{{ jikwonItem.bname }}</td>
+                <td>{{ jikwonItem.jik }}</td>
+                <td>{{ jikwonItem.pay }}</td>
+            </tr>
+            <tr>
+                <td colspan="2">인원수</td>
+                <td colspan="3">{{ jikwon.length }}</td>
+            </tr>
+            <tr>
+                <td colspan="2">연봉 평균</td>
+                <td colspan="3">{{ avgPay }}</td>
+            </tr>
+        </table>
+        <p v-else>데이터가 없습니다.</p>
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+
+        createApp({
+            data() {
+                return {
+                    jikwon: [],     // 직원 데이터
+                    jik: '',        // 직급 입력값
+                    avgPay: 0,      // 연봉 평균
+                };
+            },
+            methods: {
+                jikwonFunc() {
+                    fetch('http://localhost:8080/jikwon/' + this.jik)
+                        .then(response => {
+                            if (response.ok) {
+                                return response.json();
+                            }
+                            throw new Error('Ajax 에러');
+                        })
+                        .then(data => {
+                            console.log('API 응답 데이터:', data); // 응답 데이터를 콘솔에 출력
+                            this.jikwon = data; // 응답 데이터를 jikwon 배열로 설정
+                            let sumPay = this.jikwon.reduce((result, jd) => {
+                    return (result += parseInt(jd.pay));
+                  }, 0);
+                  this.avgPay = Number(
+                    (sumPay / this.jikwon.length).toFixed(1)    // 소수 첫째자리까지~
+                  ).toLocaleString();   // 3자리마다 콤마
+                        })
+                        .catch(error => {
+                            console.log('자료 읽기 오류:', error);
+                        });
+                }
+            },
+        }).mount('#jikwonapp');
+    </script>
+</body>
+</html>
