@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h2>🔐 JWT 로그인 연습(Security 사용 X)</h2>
+<form th:action="@{/auth/login}" method="post">
+	<table>
+		<tr>
+			<td>ID</td>
+			<td><input type="text" name="userid"></td>
+		</tr>
+		<tr>
+			<td>PWD</td>
+			<td><input type="password" name="password"></td>
+		</tr>
+		<tr>
+			<td colspan="2" style="text-align: center;">
+			<input type="submit" value="로그인">
+		</tr>
+	</table>
+</form>
+<div th:if="${param.error}">
+	<p style="color: red">로그인 실패 : 잘못된 ID 또는 Password입니다.</p>
+</div>
+</body>
+</html>

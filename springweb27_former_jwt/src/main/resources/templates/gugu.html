@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h2>🔢 구구단</h2>
+<form th:action="@{/auth/gugu}" method="post">
+	<label for="num">몇 단? </label>
+	<input type="number" id="num" name="num" value="2" required />
+	<input type="submit" value="확인" />
+</form>
+</body>
+</html>
