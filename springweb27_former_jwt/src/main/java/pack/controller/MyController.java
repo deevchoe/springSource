@@ -36,7 +36,7 @@ public class MyController {
 		
 		if(userid.equals(validId) && password.equals(validPassword)) {
 			String token = jwtService.createToken(userid);
-			Cookie cookie = new Cookie("jwt", token);		// JTW 토큰을 클라이언트에 저장
+			Cookie cookie = new Cookie("jwt", token);		// JWT 토큰을 클라이언트에 저장
 			cookie.setHttpOnly(true);	// 클라이언트에서 쿠키 수정 불가
 			cookie.setPath("/");	// 쿠키 경로
 			response.addCookie(cookie);
